@@ -27,10 +27,10 @@ function asyncComponent(args) {
       ? x.default
       : x
 
-  const getResolver = () => {
+  const getResolver = (props) => {
     let resolver
     try {
-      resolver = resolve()
+      resolver = resolve(props)
     } catch (err) {
       return Promise.reject(err)
     }
@@ -111,7 +111,7 @@ function asyncComponent(args) {
     }
 
     resolveComponent() {
-      return getResolver()
+      return getResolver(this.props)
         .then((Component) => {
           if (this.unmounted) {
             return undefined
